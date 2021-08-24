@@ -1,21 +1,24 @@
 # kurt
-KUbernetes Restart Tracker
+```
+kurt: KUbernetes Reboot Tracker
+  -l value
+        Specify multiple times for the label keys you want to see.
+        For example: -l app
+  -n string
+        Specify namespace for kurt to collect reboot metrics.
+        Leave blank to collect in all namespaces.
+```
 
 # Requirements
-
 Go Version 1.16
-
-# Recommended Tools
-[gotests](github.com/cweill/gotests/gotests) for creation of tests
-
 
 # Building
 ```
-go build 
+go build ./cmd/kurt
 ```
-Outputs a ./kurl binary
-# Testing
+Outputs a `kurt` binary
 
+# Testing
 ```
-go test ./pkg/...
+go test ./cmd/kurt -v
 ```
