@@ -1,4 +1,4 @@
-package main
+package cmd
 
 import (
 	"fmt"
@@ -13,30 +13,39 @@ func showResults() {
 	// minwidth, tabwidth, padding, padchar, flags
 	w.Init(os.Stdout, 8, 8, 1, '\t', 0)
 
-	fmt.Fprintf(w, "\n Namespace\tRestarts\t")
-	fmt.Fprintf(w, "\n \t\t")
-	for _, v := range returnSorted(namespaceTracker) {
-		fmt.Fprintf(w, "\n %v\t%v\t", v.Key, v.Value)
-	}
-	w.Flush()
+	fmt.Printf("kurt: KUbernetes Reboot Tracker")
 
-	if len(labelTracker) > 0 {
+	if printNS || printAll {
 		fmt.Println("\n\n==========")
-		fmt.Fprintf(w, "\n Labels\tRestarts\t")
+		fmt.Fprintf(w, "\n Namespace\tRestarts\t")
 		fmt.Fprintf(w, "\n \t\t")
-		for _, v := range returnSorted(labelTracker) {
+		for _, v := range returnSorted(namespaceTracker) {
 			fmt.Fprintf(w, "\n %v\t%v\t", v.Key, v.Value)
 		}
 		w.Flush()
 	}
 
-	fmt.Println("\n\n==========")
-	fmt.Fprintf(w, "\n Pods\tRestarts\t")
-	fmt.Fprintf(w, "\n \t\t")
-	for _, v := range returnSorted(podTracker) {
-		fmt.Fprintf(w, "\n %v\t%v\t", v.Key, v.Value)
+	if printLabel || printAll {
+		if len(labelTracker) > 0 {
+			fmt.Println("\n\n==========")
+			fmt.Fprintf(w, "\n Labels\tRestarts\t")
+			fmt.Fprintf(w, "\n \t\t")
+			for _, v := range returnSorted(labelTracker) {
+				fmt.Fprintf(w, "\n %v\t%v\t", v.Key, v.Value)
+			}
+			w.Flush()
+		}
 	}
-	w.Flush()
+
+	if printPods || printAll {
+		fmt.Println("\n\n==========")
+		fmt.Fprintf(w, "\n Pods\tRestarts\t")
+		fmt.Fprintf(w, "\n \t\t")
+		for _, v := range returnSorted(podTracker) {
+			fmt.Fprintf(w, "\n %v\t%v\t", v.Key, v.Value)
+		}
+		w.Flush()
+	}
 
 	fmt.Printf("\n")
 }

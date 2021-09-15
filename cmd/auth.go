@@ -1,4 +1,4 @@
-package main
+package cmd
 
 import (
 	"k8s.io/client-go/kubernetes"

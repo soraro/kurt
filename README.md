@@ -1,12 +1,29 @@
 # kurt
 ```
 kurt: KUbernetes Reboot Tracker
-  -l value
-        Specify multiple times for the label keys you want to see.
-        For example: -l app
-  -n string
-        Specify namespace for kurt to collect reboot metrics.
-        Leave blank to collect in all namespaces.
+
+A reboot tracker that gives context to what is rebooting in your cluster
+
+Usage:
+  kurt [flags]
+  kurt [command]
+
+Available Commands:
+  all         Print all groupings collected by kurt!
+  completion  generate the autocompletion script for the specified shell
+  help        Help about any command
+  labels      Only print restart counts grouped by labels
+  namespaces  Only print namespace-wide restart counts
+  pods        Only print pod restart counts
+
+Flags:
+  -h, --help                help for kurt
+  -l, --label strings       Specify multiple times for the label keys you want to see.
+                            For example: -l app (default [*])
+  -n, --namespace strings   Specify namespace for kurt to collect reboot metrics.
+                            Leave blank to collect in all namespaces.
+
+Use "kurt [command] --help" for more information about a command.
 ```
 
 # Requirements
