@@ -14,11 +14,6 @@ var rootCmd = &cobra.Command{
 
 A reboot tracker that gives context to what is rebooting in your cluster
 `,
-	Run: func(cmd *cobra.Command, args []string) {
-		printAll = true
-		clientset := auth()
-		collect(clientset, inamespace, ilabels)
-	},
 }
 
 func init() {
