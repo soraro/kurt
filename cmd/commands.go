@@ -5,9 +5,10 @@ import (
 )
 
 var cmdNamespaces = &cobra.Command{
-	Use:   "namespaces",
-	Short: "Only print namespace-wide restart counts",
-	Long:  "Only print namespace-wide restart counts",
+	Use:     "namespaces",
+	Short:   "Only print namespace-wide restart counts",
+	Long:    "Only print namespace-wide restart counts",
+	Aliases: []string{"ns"},
 	Run: func(cmd *cobra.Command, args []string) {
 		printNS = true
 		printAll = false
@@ -17,9 +18,10 @@ var cmdNamespaces = &cobra.Command{
 }
 
 var cmdPods = &cobra.Command{
-	Use:   "pods",
-	Short: "Only print pod restart counts",
-	Long:  "Only print pod restart counts",
+	Use:     "pods",
+	Short:   "Only print pod restart counts",
+	Long:    "Only print pod restart counts",
+	Aliases: []string{"po"},
 	Run: func(cmd *cobra.Command, args []string) {
 		printPods = true
 		printAll = false
