@@ -16,8 +16,8 @@ jobs:
         with:
           go-version: "1.16"
       - uses: actions/checkout@v2
-
       - run: go build
+
   test:
     runs-on: ubuntu-20.04
     steps:
@@ -25,5 +25,19 @@ jobs:
         with:
           go-version: "1.16"
       - uses: actions/checkout@v2
-
       - run: go test ./cmd -v
+
+  lint:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/setup-go@v2
+        with:
+          go-version: "1.16"
+      - uses: actions/checkout@v2
+      - run: |
+          if
+            test -z $(gofmt -l .); then
+            echo "All golang files formatted correctly 👍️";
+          else
+            echo "❗️ Golang formatting issues:"; gofmt -l .; exit 1
+          fi
