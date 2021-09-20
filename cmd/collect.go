@@ -14,19 +14,21 @@ func collect(clientset *kubernetes.Clientset, namespace []string, labels []strin
 	labelTracker = make(map[string]int32)
 
 	for _, ns := range namespace {
-		pods, err := clientset.CoreV1().Pods(ns).List(context.TODO(), metav1.ListOptions{})
-		if err != nil {
-			log.Fatal(err.Error())
-		}
-
-		for _, v := range pods.Items {
-			restarts := int32(0)
-			for _, vv := range v.Status.ContainerStatuses {
-				restarts += vv.RestartCount
+		for _, lb := range labels {
+			pods, err := clientset.CoreV1().Pods(ns).List(context.TODO(), metav1.ListOptions{LabelSelector: lb})
+			if err != nil {
+				log.Fatal(err.Error())
 			}
-			trackPods(v.ObjectMeta.Name, restarts)
-			trackNamespaces(v.ObjectMeta.Namespace, restarts)
-			trackLabels(labels, v.ObjectMeta.Labels, restarts)
+
+			for _, v := range pods.Items {
+				restarts := int32(0)
+				for _, vv := range v.Status.ContainerStatuses {
+					restarts += vv.RestartCount
+				}
+				trackPods(v.ObjectMeta.Name, restarts)
+				trackNamespaces(v.ObjectMeta.Namespace, restarts)
+				trackLabels(labels, v.ObjectMeta.Labels, restarts)
+			}
 		}
 	}
 	showResults()
@@ -49,7 +51,7 @@ func trackLabels(tlabels []string, plabels map[string]string, count int32) {
 		// range through plabels to see if any match the user specified labels. If so, add it to the map
 		// the default value "*" will match everything
 		for k, v := range plabels {
-			if l == k || l == "*" {
+			if l == k || l == "" {
 				labelTracker[k+":"+v] += count
 			}
 		}
