@@ -14,6 +14,17 @@ func TestTrackNamespaces(t *testing.T) {
 	}
 }
 
+func TestTrackNodes(t *testing.T) {
+	nodeTracker = make(map[string]int32)
+	trackNodes("node01", 5)
+	trackNodes("node01", 2)
+	trackNodes("node02", 2)
+
+	if nodeTracker["node01"] != int32(7) {
+		t.Errorf("node01 node expected to have a count of 7 but instead shows: %v", nodeTracker["node01"])
+	}
+}
+
 func TestTrackPods(t *testing.T) {
 	podTracker = make(map[string]int32)
 	trackPods("pod1", 3)

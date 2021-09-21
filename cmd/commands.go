@@ -17,6 +17,19 @@ var cmdNamespaces = &cobra.Command{
 	},
 }
 
+var cmdNodes = &cobra.Command{
+	Use:     "nodes",
+	Short:   "Only print node restart counts",
+	Long:    "Only print node restart counts",
+	Aliases: []string{"no", "node"},
+	Run: func(cmd *cobra.Command, args []string) {
+		printNode = true
+		printAll = false
+		clientset := auth()
+		collect(clientset, inamespace, ilabels)
+	},
+}
+
 var cmdPods = &cobra.Command{
 	Use:     "pods",
 	Short:   "Only print pod restart counts",
@@ -55,6 +68,7 @@ var cmdAll = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(cmdNamespaces)
+	rootCmd.AddCommand(cmdNodes)
 	rootCmd.AddCommand(cmdPods)
 	rootCmd.AddCommand(cmdLabels)
 	rootCmd.AddCommand(cmdAll)

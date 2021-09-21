@@ -10,6 +10,7 @@ import (
 func collect(clientset *kubernetes.Clientset, namespace []string, labels []string) {
 
 	namespaceTracker = make(map[string]int32)
+	nodeTracker = make(map[string]int32)
 	podTracker = make(map[string]int32)
 	labelTracker = make(map[string]int32)
 
@@ -28,6 +29,7 @@ func collect(clientset *kubernetes.Clientset, namespace []string, labels []strin
 				trackPods(v.ObjectMeta.Name, restarts)
 				trackNamespaces(v.ObjectMeta.Namespace, restarts)
 				trackLabels(labels, v.ObjectMeta.Labels, restarts)
+				trackNodes(v.Spec.NodeName, restarts)
 			}
 		}
 	}
@@ -37,6 +39,10 @@ func collect(clientset *kubernetes.Clientset, namespace []string, labels []strin
 
 func trackNamespaces(namespace string, count int32) {
 	namespaceTracker[namespace] += count
+}
+
+func trackNodes(node string, count int32) {
+	nodeTracker[node] += count
 }
 
 func trackPods(pod string, count int32) {

@@ -25,6 +25,16 @@ func showResults() {
 		w.Flush()
 	}
 
+	if printNode || printAll {
+		fmt.Println("\n\n==========")
+		fmt.Fprintf(w, "\n Node\tRestarts\t")
+		fmt.Fprintf(w, "\n \t\t")
+		for _, v := range returnSorted(nodeTracker) {
+			fmt.Fprintf(w, "\n %v\t%v\t", v.Key, v.Value)
+		}
+		w.Flush()
+	}
+
 	if printLabel || printAll {
 		if len(labelTracker) > 0 {
 			fmt.Println("\n\n==========")
