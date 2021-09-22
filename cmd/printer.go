@@ -13,7 +13,7 @@ func showResults() {
 	// minwidth, tabwidth, padding, padchar, flags
 	w.Init(os.Stdout, 8, 8, 1, '\t', 0)
 
-	fmt.Printf("kurt: KUbernetes Reboot Tracker")
+	fmt.Printf("kurt: KUbernetes Restart Tracker")
 
 	if printNS || printAll {
 		fmt.Println("\n\n==========")

@@ -1,8 +1,8 @@
 # kurt
 ```
-kurt: KUbernetes Reboot Tracker
+kurt: KUbernetes Restart Tracker
 
-A reboot tracker that gives context to what is rebooting in your cluster
+A restart tracker that gives context to what is restarting in your cluster
 
 Usage:
   kurt [flags]
@@ -20,7 +20,7 @@ Flags:
   -h, --help                help for kurt
   -l, --label strings       Specify multiple times for the label keys you want to see.
                             For example: -l app (default [*])
-  -n, --namespace strings   Specify namespace for kurt to collect reboot metrics.
+  -n, --namespace strings   Specify namespace for kurt to collect restart metrics.
                             Leave blank to collect in all namespaces.
 
 Use "kurt [command] --help" for more information about a command.
