@@ -1,6 +1,5 @@
 builds:
-  - 
-    id: kurt
+  - id: kurt
     goos:
       - darwin
       - linux
