@@ -1,7 +1,9 @@
 package cmd
 
 import (
+	"fmt"
 	"github.com/spf13/cobra"
+	"kurt/internal/version"
 )
 
 var cmdNamespaces = &cobra.Command{
@@ -66,10 +68,20 @@ var cmdAll = &cobra.Command{
 	},
 }
 
+var cmdVersion = &cobra.Command{
+	Use:   "version",
+	Short: "Print the current version and exit",
+	Long:  `Print the current version and exit`,
+	Run: func(cmd *cobra.Command, args []string) {
+		fmt.Printf("kurt:  %s\n", version.Version())
+	},
+}
+
 func init() {
 	rootCmd.AddCommand(cmdNamespaces)
 	rootCmd.AddCommand(cmdNodes)
 	rootCmd.AddCommand(cmdPods)
 	rootCmd.AddCommand(cmdLabels)
 	rootCmd.AddCommand(cmdAll)
+	rootCmd.AddCommand(cmdVersion)
 }
