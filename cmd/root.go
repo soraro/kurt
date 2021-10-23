@@ -21,8 +21,8 @@ A restart tracker that gives context to what is restarting in your cluster
 func init() {
 
 	rootCmd.PersistentFlags().StringSliceVarP(&inamespace, "namespace", "n", []string{""}, "Specify namespace for kurt to collect restart metrics.\nLeave blank to collect in all namespaces.")
-	rootCmd.PersistentFlags().StringSliceVarP(&ilabels, "label", "l", []string{""}, "Specify multiple times for the label keys you want to see.\nFor example: `kurtl all -l app`")
-	rootCmd.PersistentFlags().IntVar(&limitFlag, "limit", 5, "Specify the limit for number of resources you want to see. Default limit of 5. Set limit to 0 for no limits.\nFor example `./kurt all --limit=10`")
+	rootCmd.PersistentFlags().StringSliceVarP(&ilabels, "label", "l", []string{""}, "Specify multiple times for the label keys you want to see.\nFor example: \"kurt all -l app\"")
+	rootCmd.PersistentFlags().IntVar(&limitFlag, "limit", 5, "Specify the limit for number of resources you want to see. Set limit to 0 for no limits.\nFor example: \"kurt all --limit=10\"")
 
 }
 
