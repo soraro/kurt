@@ -21,7 +21,7 @@ func init() {
 
 	rootCmd.PersistentFlags().StringSliceVarP(&inamespace, "namespace", "n", []string{""}, "Specify namespace for kurt to collect restart metrics.\nLeave blank to collect in all namespaces.")
 	rootCmd.PersistentFlags().StringSliceVarP(&ilabels, "label", "l", []string{""}, "Specify multiple times for the label keys you want to see.\nFor example: \"kurt all -l app\"")
-	rootCmd.PersistentFlags().IntVar(&limitFlag, "limit", 5, "Specify the limit for number of resources you want to see. Set limit to 0 for no limits.\nFor example: \"kurt all --limit=10\"")
+	rootCmd.PersistentFlags().IntVarP(&limitFlag, "limit", "c", 5, "Limit the number of resources you want to see. Set limit to 0 for no limits. Must be positive.\nFor example: \"kurt all -c=10\"")
 
 }
 

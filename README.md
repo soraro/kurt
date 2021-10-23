@@ -21,8 +21,8 @@ Flags:
   -h, --help                help for kurt
   -l, --label strings       Specify multiple times for the label keys you want to see.
                             For example: "kurt all -l app"
-      --limit int           Specify the limit for number of resources you want to see. Set limit to 0 for no limits.
-                            For example: "kurt all --limit=10" (default 5)
+  -c, --limit int           Limit the number of resources you want to see. Set limit to 0 for no limits. Must be positive.
+                            For example: "kurt all -c=10" (default 5)
   -n, --namespace strings   Specify namespace for kurt to collect restart metrics.
                             Leave blank to collect in all namespaces.
 

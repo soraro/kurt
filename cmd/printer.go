@@ -2,16 +2,12 @@ package cmd
 
 import (
 	"fmt"
-	"log"
 	"os"
 	"sort"
 	"text/tabwriter"
 )
 
 func showResults() {
-	if limitFlag < 0 {
-		log.Fatal("FATAL CONFIGURATION: --limit flag value must not be negative.")
-	}
 
 	w := new(tabwriter.Writer)
 	// minwidth, tabwidth, padding, padchar, flags
@@ -76,17 +72,6 @@ type PairList []Pair
 func (p PairList) Len() int           { return len(p) }
 func (p PairList) Less(i, j int) bool { return p[i].Value < p[j].Value }
 func (p PairList) Swap(i, j int)      { p[i], p[j] = p[j], p[i] }
-
-func returnSorted(data map[string]int32) PairList {
-	pl := make(PairList, len(data))
-	i := 0
-	for k, v := range data {
-		pl[i] = Pair{k, v}
-		i++
-	}
-	sort.Sort(sort.Reverse(pl))
-	return pl
-}
 
 func returnSortedLimit(data map[string]int32, limit int) PairList {
 	pl := make(PairList, len(data))
