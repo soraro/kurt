@@ -2,12 +2,16 @@ package cmd
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"sort"
 	"text/tabwriter"
 )
 
 func showResults() {
+	if limitFlag < 0 {
+		log.Fatal("FATAL CONFIGURATION: --limit flag value must not be negative.")
+	}
 
 	w := new(tabwriter.Writer)
 	// minwidth, tabwidth, padding, padchar, flags

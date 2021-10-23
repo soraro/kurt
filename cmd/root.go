@@ -7,7 +7,6 @@ import (
 var inamespace []string
 var ilabels []string
 var limitFlag int
-var noLimit bool
 
 var rootCmd = &cobra.Command{
 	Use:   "kurt",
