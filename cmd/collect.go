@@ -2,12 +2,17 @@ package cmd
 
 import (
 	"context"
+	"log"
+
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
-	"log"
 )
 
 func collect(clientset *kubernetes.Clientset, namespace []string, labels []string) {
+
+	if limitFlag < 0 {
+		log.Fatal("FATAL CONFIGURATION: --limit flag value must not be negative.")
+	}
 
 	namespaceTracker = make(map[string]int32)
 	nodeTracker = make(map[string]int32)

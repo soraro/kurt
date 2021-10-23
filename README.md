@@ -5,7 +5,6 @@ kurt: KUbernetes Restart Tracker
 A restart tracker that gives context to what is restarting in your cluster
 
 Usage:
-  kurt [flags]
   kurt [command]
 
 Available Commands:
@@ -14,12 +13,16 @@ Available Commands:
   help        Help about any command
   labels      Only print restart counts grouped by labels
   namespaces  Only print namespace-wide restart counts
+  nodes       Only print node restart counts
   pods        Only print pod restart counts
+  version     Print the current version and exit
 
 Flags:
   -h, --help                help for kurt
   -l, --label strings       Specify multiple times for the label keys you want to see.
-                            For example: -l app (default [*])
+                            For example: "kurt all -l app"
+  -c, --limit int           Limit the number of resources you want to see. Set limit to 0 for no limits. Must be positive.
+                            For example: "kurt all -c=10" (default 5)
   -n, --namespace strings   Specify namespace for kurt to collect restart metrics.
                             Leave blank to collect in all namespaces.
 
@@ -31,11 +34,11 @@ Go Version 1.16
 
 # Building
 ```
-go build ./cmd/kurt
+go build .
 ```
 Outputs a `kurt` binary
 
 # Testing
 ```
-go test ./cmd/kurt -v
+go test ./cmd -v
 ```
