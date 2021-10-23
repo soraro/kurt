@@ -31,11 +31,11 @@ Go Version 1.16
 
 # Building
 ```
-go build ./cmd/kurt
+go build .
 ```
 Outputs a `kurt` binary
 
 # Testing
 ```
-go test ./cmd/kurt -v
+go test ./cmd -v
 ```

@@ -19,7 +19,7 @@ func showResults() {
 		fmt.Println("\n\n==========")
 		fmt.Fprintf(w, "\n Namespace\tRestarts\t")
 		fmt.Fprintf(w, "\n \t\t")
-		for _, v := range returnSorted(namespaceTracker) {
+		for _, v := range returnSortedLimit(namespaceTracker, limitFlag) {
 			fmt.Fprintf(w, "\n %v\t%v\t", v.Key, v.Value)
 		}
 		w.Flush()
@@ -29,7 +29,7 @@ func showResults() {
 		fmt.Println("\n\n==========")
 		fmt.Fprintf(w, "\n Node\tRestarts\t")
 		fmt.Fprintf(w, "\n \t\t")
-		for _, v := range returnSorted(nodeTracker) {
+		for _, v := range returnSortedLimit(nodeTracker, limitFlag) {
 			fmt.Fprintf(w, "\n %v\t%v\t", v.Key, v.Value)
 		}
 		w.Flush()
@@ -40,7 +40,7 @@ func showResults() {
 			fmt.Println("\n\n==========")
 			fmt.Fprintf(w, "\n Labels\tRestarts\t")
 			fmt.Fprintf(w, "\n \t\t")
-			for _, v := range returnSorted(labelTracker) {
+			for _, v := range returnSortedLimit(labelTracker, limitFlag) {
 				fmt.Fprintf(w, "\n %v\t%v\t", v.Key, v.Value)
 			}
 			w.Flush()
@@ -51,7 +51,7 @@ func showResults() {
 		fmt.Println("\n\n==========")
 		fmt.Fprintf(w, "\n Pods\tRestarts\t")
 		fmt.Fprintf(w, "\n \t\t")
-		for _, v := range returnSorted(podTracker) {
+		for _, v := range returnSortedLimit(podTracker, limitFlag) {
 			fmt.Fprintf(w, "\n %v\t%v\t", v.Key, v.Value)
 		}
 		w.Flush()
@@ -82,4 +82,19 @@ func returnSorted(data map[string]int32) PairList {
 	}
 	sort.Sort(sort.Reverse(pl))
 	return pl
+}
+
+func returnSortedLimit(data map[string]int32, limit int) PairList {
+	pl := make(PairList, len(data))
+	i := 0
+	for k, v := range data {
+		pl[i] = Pair{k, v}
+		i++
+	}
+	sort.Sort(sort.Reverse(pl))
+	if len(pl) <= limit || limit == 0 {
+		return pl
+	} else {
+		return pl[0:limit]
+	}
 }
