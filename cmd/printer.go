@@ -55,7 +55,7 @@ func showResults() {
 		for _, v := range returnSortedLimit(podTracker, limitFlag) {
 			// split the Key so we can display the pod an namespace separately
 			s := strings.Split(v.Key, ":")
-			fmt.Fprintf(w, "\n %v\t%v\t%v\t", s[0], s[1], v.Value)
+			fmt.Fprintf(w, "\n %v\t%v\t%v\t", s[1], s[0], v.Value)
 		}
 		w.Flush()
 	}
