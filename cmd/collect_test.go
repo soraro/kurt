@@ -27,8 +27,10 @@ func TestTrackNodes(t *testing.T) {
 
 func TestTrackPods(t *testing.T) {
 	podTracker = make(map[string]int32)
-	trackPods("pod1", 3)
-	if podTracker["pod1"] != 3 {
+	// Test that a pod with the same name in a different namespace is held uniquely in the map
+	trackPods("pod1", "default", 3)
+	trackPods("pod1", "other", 2)
+	if podTracker["default:pod1"] != 3 {
 		t.Errorf("pod1 pod expected to have a count of 3 but instead shows: %v", podTracker["pod1"])
 	}
 }

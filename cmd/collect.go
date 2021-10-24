@@ -31,7 +31,7 @@ func collect(clientset *kubernetes.Clientset, namespace []string, labels []strin
 				for _, vv := range v.Status.ContainerStatuses {
 					restarts += vv.RestartCount
 				}
-				trackPods(v.ObjectMeta.Name, restarts)
+				trackPods(v.ObjectMeta.Name, v.ObjectMeta.Namespace, restarts)
 				trackNamespaces(v.ObjectMeta.Namespace, restarts)
 				trackLabels(labels, v.ObjectMeta.Labels, restarts)
 				trackNodes(v.Spec.NodeName, restarts)
@@ -50,8 +50,8 @@ func trackNodes(node string, count int32) {
 	nodeTracker[node] += count
 }
 
-func trackPods(pod string, count int32) {
-	podTracker[pod] = count
+func trackPods(pod, namespace string, count int32) {
+	podTracker[namespace+":"+pod] = count
 }
 
 // plabels = Pod Labels
