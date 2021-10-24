@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"sort"
+	"strings"
 	"text/tabwriter"
 )
 
@@ -38,7 +39,7 @@ func showResults() {
 	if printLabel || printAll {
 		if len(labelTracker) > 0 {
 			fmt.Println("\n\n==========")
-			fmt.Fprintf(w, "\n Labels\tRestarts\t")
+			fmt.Fprintf(w, "\n Label\tRestarts\t")
 			fmt.Fprintf(w, "\n \t\t")
 			for _, v := range returnSortedLimit(labelTracker, limitFlag) {
 				fmt.Fprintf(w, "\n %v\t%v\t", v.Key, v.Value)
@@ -49,10 +50,12 @@ func showResults() {
 
 	if printPods || printAll {
 		fmt.Println("\n\n==========")
-		fmt.Fprintf(w, "\n Pods\tRestarts\t")
-		fmt.Fprintf(w, "\n \t\t")
+		fmt.Fprintf(w, "\n Pod\tNamespace\tRestarts\t")
+		fmt.Fprintf(w, "\n \t\t\t")
 		for _, v := range returnSortedLimit(podTracker, limitFlag) {
-			fmt.Fprintf(w, "\n %v\t%v\t", v.Key, v.Value)
+			// split the Key so we can display the pod an namespace separately
+			s := strings.Split(v.Key, ":")
+			fmt.Fprintf(w, "\n %v\t%v\t%v\t", s[0], s[1], v.Value)
 		}
 		w.Flush()
 	}
