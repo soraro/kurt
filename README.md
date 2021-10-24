@@ -99,7 +99,7 @@ kurt -h
 ```
 
 # Permissions
-As seen in the [`cmd/collect.go` file](https://github.com/soraro/kurt/blob/main/cmd/collect.go) the only permission required for kurt is `list`.
+As seen in the [`cmd/collect.go` file](https://github.com/soraro/kurt/blob/main/cmd/collect.go) the only permission required for kurt is `pods/list`.
 
 # Requirements
 Go Version 1.16
