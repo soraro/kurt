@@ -30,7 +30,7 @@ Use "kurt [command] --help" for more information about a command.
 ```
 
 # Install
-Head over to our [releases page](https://github.com/soraro/kurt/releases/latest)!
+Head over to our [releases page](https://github.com/soraro/kurt/releases/latest)
 
 # Examples
 Show the top 5 highest restart counts grouped by `Namespace`, `Node`, `Label`, and `Pod`:
