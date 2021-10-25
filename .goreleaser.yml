@@ -12,3 +12,11 @@ builds:
       -X kurt/internal/version.gitSHA={{.Commit}}
       -X kurt/internal/version.buildTime={{.Date}}
       -extldflags "-static"
+archives:
+  - id: kurt
+    builds:
+      - kurt
+    format: tar.gz
+    format_overrides:
+      - goos: windows
+        format: zip
