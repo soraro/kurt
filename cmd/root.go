@@ -27,7 +27,9 @@ func init() {
 	rootCmd.PersistentFlags().IntVarP(&limitFlag, "limit", "c", 5, "Limit the number of resources you want to see. Set limit to 0 for no limits. Must be positive.\nFor example: \"kurt all -c=10\"")
 
 	if strings.HasPrefix(filepath.Base(os.Args[0]), "kubectl-") {
-		rootCmd.SetUsageTemplate(strings.ReplaceAll(rootCmd.UsageString(), "kurt", "kubectl kurt"))
+		rootCmd.SetUsageTemplate(strings.NewReplacer(
+			"{{.UseLine}}", "kubectl {{.UseLine}}",
+			"{{.CommandPath}}", "kubectl {{.CommandPath}}").Replace(rootCmd.UsageTemplate()))
 	}
 
 }
