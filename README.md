@@ -30,7 +30,10 @@ Use "kurt [command] --help" for more information about a command.
 ```
 
 # Install
-Head over to our [releases page](https://github.com/soraro/kurt/releases/latest)
+Head over to our [releases page](https://github.com/soraro/kurt/releases/latest) or run as a `kubectl` plugin with [krew](https://krew.sigs.k8s.io/)
+```
+kubectl krew install kurt
+```
 
 # Examples
 Show the top 5 highest restart counts grouped by `Namespace`, `Node`, `Label`, and `Pod`:
