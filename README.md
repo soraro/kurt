@@ -35,6 +35,8 @@ Head over to our [releases page](https://github.com/soraro/kurt/releases/latest)
 kubectl krew install kurt
 ```
 
+[Easy install for krew](https://krew.sh/)
+
 # Examples
 Show the top 5 highest restart counts grouped by `Namespace`, `Node`, `Label`, and `Pod`:
 ```
