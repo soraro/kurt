@@ -7,13 +7,14 @@ import (
 
 func Test_returnSortedLimit(t *testing.T) {
 	type args struct {
-		data  map[string]int32
-		limit int
+		data    map[string]int32
+		limit   int
+		parseNS bool
 	}
 	tests := []struct {
 		name string
 		args args
-		want PairList
+		want ItemList
 	}{
 		{
 			name: "test1",
@@ -26,28 +27,34 @@ func Test_returnSortedLimit(t *testing.T) {
 					"test5": 0,
 					"test6": 4,
 				},
-				limit: 5,
+				limit:   5,
+				parseNS: false,
 			},
-			want: PairList{
-				Pair{
-					Key:   "test4",
-					Value: 9,
+			want: ItemList{
+				Item{
+					Name:      "test4",
+					Count:     9,
+					Namespace: "",
 				},
-				Pair{
-					Key:   "test3",
-					Value: 8,
+				Item{
+					Name:      "test3",
+					Count:     8,
+					Namespace: "",
 				},
-				Pair{
-					Key:   "test2",
-					Value: 7,
+				Item{
+					Name:      "test2",
+					Count:     7,
+					Namespace: "",
 				},
-				Pair{
-					Key:   "test1",
-					Value: 5,
+				Item{
+					Name:      "test1",
+					Count:     5,
+					Namespace: "",
 				},
-				Pair{
-					Key:   "test6",
-					Value: 4,
+				Item{
+					Name:      "test6",
+					Count:     4,
+					Namespace: "",
 				},
 			},
 		},
@@ -55,7 +62,7 @@ func Test_returnSortedLimit(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := returnSortedLimit(tt.args.data, tt.args.limit); !reflect.DeepEqual(got, tt.want) {
+			if got := returnSortedLimit(tt.args.data, tt.args.limit, tt.args.parseNS); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("returnSortedLimit() = %v, want %v", got, tt.want)
 			}
 		})

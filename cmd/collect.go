@@ -14,6 +14,10 @@ func collect(clientset *kubernetes.Clientset, namespace []string, labels []strin
 		log.Fatal("FATAL CONFIGURATION: --limit flag value must not be negative.")
 	}
 
+	if !(output == "standard" || output == "yaml" || output == "json") {
+		log.Fatal("FATAL CONFIGURATION: --output flag can only be: standard, json, yaml")
+	}
+
 	namespaceTracker = make(map[string]int32)
 	nodeTracker = make(map[string]int32)
 	podTracker = make(map[string]int32)
