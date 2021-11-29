@@ -1,0 +1,78 @@
+apiVersion: krew.googlecontainertools.github.com/v1alpha2
+kind: Plugin
+metadata:
+  name: kurt
+spec:
+  version: {{ .TagName }}
+  platforms:
+  - selector:
+      matchLabels:
+        os: linux
+        arch: amd64
+    {{addURIAndSha "https://github.com/soraro/kurt/releases/download/{{ .TagName }}/kurt_linux_amd64.tar.gz" .TagName }}
+    files:
+    - from: kurt
+      to: .
+    - from: LICENSE
+      to: .
+    bin: kurt
+  - selector:
+      matchLabels:
+        os: darwin
+        arch: amd64
+    {{addURIAndSha "https://github.com/soraro/kurt/releases/download/{{ .TagName }}/kurt_darwin_amd64.tar.gz" .TagName }}
+    files:
+    - from: kurt
+      to: .
+    - from: LICENSE
+      to: .
+    bin: kurt
+  - selector:
+      matchLabels:
+        os: darwin
+        arch: arm64
+    {{addURIAndSha "https://github.com/soraro/kurt/releases/download/{{ .TagName }}/kurt_darwin_arm64.tar.gz" .TagName }}
+    files:
+    - from: kurt
+      to: .
+    - from: LICENSE
+      to: .
+    bin: kurt
+  - selector:
+      matchLabels:
+        os: linux
+        arch: arm64
+    {{addURIAndSha "https://github.com/soraro/kurt/releases/download/{{ .TagName }}/kurt_linux_arm64.tar.gz" .TagName }}
+    files:
+    - from: kurt
+      to: .
+    - from: LICENSE
+      to: .
+    bin: kurt
+  - selector:
+      matchLabels:
+        os: windows
+        arch: amd64
+    {{addURIAndSha "https://github.com/soraro/kurt/releases/download/{{ .TagName }}/kurt_windows_amd64.zip" .TagName }}
+    files:
+    - from: kurt.exe
+      to: .
+    - from: LICENSE
+      to: .
+    bin: kurt.exe
+  shortDescription: Find what's restarting and why
+  homepage: https://github.com/soraro/kurt
+  description: |
+    Use kurt to see pods that are restarting in your cluster and get further context to issues by grouping the results.
+    Top 5 results from all groupings:
+    kubectl kurt all
+
+    Top 5 nodes with restarting pods:
+    kubectl kurt nodes
+
+    All restarting pods in the test namespace:
+    kubectl kurt pods -c 0 -n test
+
+    Help:
+    kubectl kurt -h
+
