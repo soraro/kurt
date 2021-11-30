@@ -25,6 +25,8 @@ Flags:
                             For example: "kurt all -c=10" (default 5)
   -n, --namespace strings   Specify namespace for kurt to collect restart metrics.
                             Leave blank to collect in all namespaces.
+  -o, --output string       Specify output type. Options are: json, yaml, standard
+                            For example: "kurt all -o json" (default "standard")
 
 Use "kurt [command] --help" for more information about a command.
 ```
@@ -104,6 +106,16 @@ kurt po -n default -l app -c 20
 Get help:
 ```
 kurt -h
+```
+
+Structured output:
+```
+# With structured output you could use a script like this to delete the top rebooting pod
+
+JSON=$(kurt pods -o json)
+POD=$(echo $JSON | jq -r .pods[0].name)
+NS=$(echo $JSON | jq -r .pods[0].namespace)
+kubectl delete pod $POD -n $NS
 ```
 
 # Permissions

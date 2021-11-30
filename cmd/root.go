@@ -11,6 +11,7 @@ import (
 var inamespace []string
 var ilabels []string
 var limitFlag int
+var output string
 
 var rootCmd = &cobra.Command{
 	Use:   "kurt",
@@ -25,6 +26,7 @@ func init() {
 	rootCmd.PersistentFlags().StringSliceVarP(&inamespace, "namespace", "n", []string{""}, "Specify namespace for kurt to collect restart metrics.\nLeave blank to collect in all namespaces.")
 	rootCmd.PersistentFlags().StringSliceVarP(&ilabels, "label", "l", []string{""}, "Specify multiple times for the label keys you want to see.\nFor example: \"kurt all -l app\"")
 	rootCmd.PersistentFlags().IntVarP(&limitFlag, "limit", "c", 5, "Limit the number of resources you want to see. Set limit to 0 for no limits. Must be positive.\nFor example: \"kurt all -c=10\"")
+	rootCmd.PersistentFlags().StringVarP(&output, "output", "o", "standard", "Specify output type. Options are: json, yaml, standard\nFor example: \"kurt all -o json\"")
 
 	if strings.HasPrefix(filepath.Base(os.Args[0]), "kubectl-") {
 		rootCmd.SetUsageTemplate(strings.NewReplacer(
