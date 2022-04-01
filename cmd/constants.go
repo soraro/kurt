@@ -1,9 +1,10 @@
 package cmd
 
-var namespaceTracker map[string]int32
-var nodeTracker map[string]int32
-var podTracker map[string]int32
-var labelTracker map[string]int32
+var namespaceTracker = make(map[string]int32)
+var nodeTracker = make(map[string]int32)
+var podTracker = make(map[string]int32)
+var labelTracker = make(map[string]int32)
+var containerTracker = make(map[string]map[string]int32)
 
 var printAll bool
 var printNS bool

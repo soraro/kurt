@@ -5,7 +5,6 @@ import (
 )
 
 func TestTrackNamespaces(t *testing.T) {
-	namespaceTracker = make(map[string]int32)
 	trackNamespaces("ns1", 5)
 	trackNamespaces("ns1", 2)
 
@@ -15,7 +14,6 @@ func TestTrackNamespaces(t *testing.T) {
 }
 
 func TestTrackNodes(t *testing.T) {
-	nodeTracker = make(map[string]int32)
 	trackNodes("node01", 5)
 	trackNodes("node01", 2)
 	trackNodes("node02", 2)
@@ -26,7 +24,6 @@ func TestTrackNodes(t *testing.T) {
 }
 
 func TestTrackPods(t *testing.T) {
-	podTracker = make(map[string]int32)
 	// Test that a pod with the same name in a different namespace is held uniquely in the map
 	trackPods("pod1", "default", 3)
 	trackPods("pod1", "other", 2)
@@ -35,8 +32,15 @@ func TestTrackPods(t *testing.T) {
 	}
 }
 
+func TestTrackContainers(t *testing.T) {
+	initializeContainerMap("pod1", "default")
+	trackContainers("pod1", "default", "container1", 5)
+	if containerTracker["default:pod1"]["container1"] != 5 {
+		t.Errorf("pod1/container1 expected to have a count of 5 but instead shows: %v", containerTracker)
+	}
+}
+
 func TestTrackLabels(t *testing.T) {
-	labelTracker = make(map[string]int32)
 	tlabels := []string{"app", "k8s-app"}
 	plabelsA := map[string]string{
 		"app":   "app1",
