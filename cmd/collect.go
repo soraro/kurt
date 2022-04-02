@@ -18,11 +18,6 @@ func collect(clientset *kubernetes.Clientset, namespace []string, labels []strin
 		log.Fatal("FATAL CONFIGURATION: --output flag can only be: standard, json, yaml")
 	}
 
-	namespaceTracker = make(map[string]int32)
-	nodeTracker = make(map[string]int32)
-	podTracker = make(map[string]int32)
-	labelTracker = make(map[string]int32)
-
 	for _, ns := range namespace {
 		for _, lb := range labels {
 			pods, err := clientset.CoreV1().Pods(ns).List(context.TODO(), metav1.ListOptions{LabelSelector: lb})
@@ -31,9 +26,11 @@ func collect(clientset *kubernetes.Clientset, namespace []string, labels []strin
 			}
 
 			for _, v := range pods.Items {
+				initializeContainerMap(v.ObjectMeta.Name, v.ObjectMeta.Namespace)
 				restarts := int32(0)
 				for _, vv := range v.Status.ContainerStatuses {
 					restarts += vv.RestartCount
+					trackContainers(v.ObjectMeta.Name, v.ObjectMeta.Namespace, vv.Name, vv.RestartCount)
 				}
 				trackPods(v.ObjectMeta.Name, v.ObjectMeta.Namespace, restarts)
 				trackNamespaces(v.ObjectMeta.Namespace, restarts)
@@ -56,6 +53,14 @@ func trackNodes(node string, count int32) {
 
 func trackPods(pod, namespace string, count int32) {
 	podTracker[namespace+":"+pod] = count
+}
+
+func trackContainers(pod, namespace, container string, count int32) {
+	containerTracker[namespace+":"+pod][container] = count
+}
+
+func initializeContainerMap(pod, namespace string) {
+	containerTracker[namespace+":"+pod] = make(map[string]int32)
 }
 
 // plabels = Pod Labels
