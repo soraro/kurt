@@ -5,7 +5,7 @@ go 1.19
 require (
 	github.com/spf13/cobra v1.7.0
 	gopkg.in/yaml.v2 v2.4.0
-	k8s.io/apimachinery v0.27.3
+	k8s.io/apimachinery v0.27.4
 	k8s.io/client-go v0.27.3
 )
 
