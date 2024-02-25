@@ -21,7 +21,7 @@ jobs:
             image: kindest/node:v1.25.16@sha256:e8b50f8e06b44bb65a93678a65a26248fae585b3d3c2a669e5ca6c90c69dc519
           - version: "1.24"
             image: kindest/node:v1.24.17@sha256:bad10f9b98d54586cba05a7eaa1b61c6b90bfc4ee174fdc43a7b75ca75c95e51
-          - version: "1.21"
+          - version: "1.23"
             image: kindest/node:v1.23.17@sha256:14d0a9a892b943866d7e6be119a06871291c517d279aedb816a4b4bc0ec0a5b3
     steps:
       - name: Create k8s Kind Cluster - ${{ matrix.version }}
