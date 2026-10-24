@@ -1,3 +1,4 @@
+version: 2
 builds:
   - id: kurt
     goos:
@@ -18,10 +19,12 @@ sboms: # https://goreleaser.com/customization/sbom/
   - artifacts: archive
 archives:
   - id: kurt
-    builds:
+    ids:
       - kurt
-    format: tar.gz
+    formats:
+      - tar.gz
     format_overrides:
       - goos: windows
-        format: zip
+        formats:
+          - zip
     name_template: "{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}"
